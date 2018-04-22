@@ -1,0 +1,37 @@
+<h1>Posts#show</h1>
+<p>Find me in app/views/posts/show.html.erb</p>
+
+
+<form class="" action="<%= comments_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="comment[post_id]" value="<%=@post.id%>">
+
+  <label>Content
+    <input type="text" name="comment[content]" value="">
+  </label>
+
+  <input type="submit" name="" value="New Comment">
+</form>
+
+<ul>
+  <% @post.comments.try(:each) do |comment| %>
+    <li>
+      <!-- <%# debugger %> -->
+      <% if comment.parent_comment_id.nil? %>
+        <a href="<%= comment_url(comment) %>"><%= truncate(comment.content) %></a>
+      <br>
+
+      <ol>
+        <h4>Children</h4>
+        <% comment.children.try(:each) do |child| %>
+        <li><%= child.content %></li>
+        <% end %>
+        <% else %>
+        <a href="<%= comment_url(comment) %>"><%= truncate(comment.content) %></a>
+      <% end %>
+    </ol>
+  </li>
+  <% end %>
+</ul>
+<br>

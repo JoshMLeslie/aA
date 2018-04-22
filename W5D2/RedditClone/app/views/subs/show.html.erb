@@ -1,0 +1,67 @@
+<h1>Subs#show</h1>
+<p>Find me in app/views/subs/show.html.erb</p>
+
+<h2>  <a href="<%=subs_url%>">All Subs</a> </h2>
+
+<h3> Make a new post </h3>
+<form class="" action="<%=sub_posts_url(@sub)%>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label> Text
+    <input type="text" name="post[title]" value="">
+  </label>
+
+  <br>
+
+  <label> URL
+    <input type="text" name="post[url]" value="">
+  </label>
+
+  <br>
+
+  <label>Content
+    <input type="text" name="post[content]" value="">
+  </label>
+
+  <br>
+  <br>
+
+
+  <label> Which Subs would you like to post to?<br>
+    <input type="hidden" name="post[sub_ids][]" value="">
+
+    <!--  checkboxes of subs -->
+    <% Sub.all.each do |sub_row| %>
+      <li><label>
+        <input
+          type="checkbox"
+          name="post[sub_ids][]"
+          value="<%= sub_row.id %>"
+          <%= params[:id].to_i == sub_row.id ? "checked" : "" %>
+        >
+        <%= sub_row.title %>
+      </label></li>
+
+    <% end %>
+
+
+<br>
+<br>
+<input type="submit" name="" value="Create Post! And maybe pray that it works, too. If you're into that sort of thing. No judgement. Unless you're also into that sort of thing.">
+
+  </label>
+</form>
+
+<br>
+
+<h2>All Posts</h2>
+<% @sub.posts.try(:each) do |post| %>
+  <li>
+    <h2>
+      <a href="<%= post_url(post) %>"><%= post.title %>
+      </a>
+    </h2>
+    <%= post.content %>
+    <br>
+  </li>
+<% end %>
