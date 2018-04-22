@@ -1,0 +1,14 @@
+<img src = "http://i.dailymail.co.uk/i/pix/2009/10/29/article-1223911-07013857000005DC-736_634x480.jpg">
+
+<br>
+<p>
+  <% if @bands.any? %>
+    <%= render @bands %> <!-- looks at _bands.-.- -->
+  <% else %>
+    No bands in DB
+  <% end %>
+</p>
+
+<% content_for :footer do %>
+<p>app/views/bands/index.html.erb</p>
+<% end %>

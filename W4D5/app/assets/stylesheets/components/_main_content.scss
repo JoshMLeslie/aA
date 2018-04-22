@@ -1,0 +1,47 @@
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 14px;
+  color: $gray;
+  padding: 0;
+}
+
+#main_side_list {
+  list-style: circle;
+  padding-left: 20px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+
+#tiny_line {
+  padding: 10px;
+  border-bottom: 1px solid $gray;
+  margin-bottom: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+#main_content_links:hover {
+  text-decoration: underline;
+  color: $blue;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  padding: 20px;
+}

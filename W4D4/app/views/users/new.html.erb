@@ -1,0 +1,27 @@
+<h1>Welcome to another music app!</h1>
+<h3>Begin your adventure:</h3>
+
+<% flash[:errors].try(:each) do |error| %>
+<%= error %>
+<% end %>
+
+
+<form action="<%= users_url %>"
+      method="POST">
+  <%= auth_token %>
+
+  Email: <input type="text"
+                name="user[email]"
+                value="<%=@user.email%>">
+  <br>
+  Password: <input type="password"
+                   name="user[password]">
+
+  <br>
+  <br>
+  <input type="submit" value="Sign Up!" >
+</form>
+
+<% content_for :footer do %>
+<p>app/views/users/new.html.erb</p>
+<% end %>

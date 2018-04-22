@@ -1,0 +1,22 @@
+<table>
+    <thead> <!-- table header -->
+        <tr>
+            <th colspan="1"><%=@cat.name%></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Birthday: <%= @cat.birth_date %></td>
+        </tr>
+        <tr>
+          <td>Sex: <%= @cat.sex %></td>
+        </tr>
+        <tr>
+          <td>Description <%= @cat.description %></td>
+        </tr>
+    </tbody>
+
+</table>
+<br>
+<a href="<%= cats_url %>">Return to Index</a>

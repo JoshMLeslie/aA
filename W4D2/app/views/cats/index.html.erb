@@ -1,0 +1,8 @@
+<% @cats.each do |cat| %>
+  <!-- <a href="/cats/<%#= cat.id %>">
+  <%#= cat.name %></a>
+  <br> -->
+  <a href="<%= cat_url(cat) %>">
+  <%= cat.name %></a>
+  <br>
+<% end %>

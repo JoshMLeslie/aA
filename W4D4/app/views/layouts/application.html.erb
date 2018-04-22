@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Musicapp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+  </head>
+
+  <body>
+    <!--  display user name here or whatever-->
+    <section id = "user_block">
+      You: <%= current_user.email %> <br>
+      <a href="<%=users_url%>">All users</a>
+      <a href="<%=bands_url%>">All bands</a>
+      <a href="<%=albums_url%>">All albums</a>
+    </section>
+
+    <h1> Just another music app </h1>
+
+  </body>
+
+
+  <!--  logout button-->
+  <!-- <form class="" action="<%#= user_url(current_user.id) %>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="button" name="" value="LogOut">
+  </form> -->
+
+  <body>
+    <%= yield %>
+  </body>
+
+  <footer>
+    <%= yield :footer %>
+  </footer>
+</html>

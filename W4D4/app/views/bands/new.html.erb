@@ -1,0 +1,22 @@
+<section>
+  <h3>Oh, <strong>another</strong> new band?</h3>
+
+  <% flash[:errors].try(:each) do |error| %>
+  <%= error %>
+  <% end %>
+
+
+  <form action="<%= bands_url %>"
+        method="POST">
+    <%= auth_token %>
+
+    Name: <input type="text"
+                  name="band[name]"
+                  value="<%=@band.name%>">
+    <br>
+    <input type="submit" value="Sell your soul!" >
+  </form>
+</section
+<% content_for :footer do %>
+<p>app/views/users/new.html.erb</p>
+<% end %>

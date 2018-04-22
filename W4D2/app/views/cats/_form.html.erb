@@ -1,0 +1,41 @@
+<!-- CAT CONTROLLERS -->
+
+<%= flash[:errors] %>
+
+<% action = (cat.persisted? ? :edit : :new) %>
+<% action_url = (action == :new ? cats_url : cat_url(cat) )%>
+
+<form action="<%= action_url %>" method="POST">
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <h1><%= action == :edit ? "Change Genes!" : "Adopt a cat!"%></h1>
+
+  <input id="name" type="text" name="cat[name]" value="<%=cat.name%>">
+
+  <br>
+
+  <input id="sex" type="radio" name="cat[sex]" value="M" <%=cat.sex == 'M' ? 'checked' : ''%> > Male <br>
+  <input id="sex" type="radio" name="cat[sex]" value="F" <%=cat.sex == 'F' ? 'checked' : ''%> > Female
+
+  <br>
+
+  <select id="color" name="cat[color]">
+    <!-- Cat::COLORS ? -->
+    <option disabled selected>--Choose Color--</option>
+    <% Cat::COLORS.each do |color| %>
+      <option value ="<%= color %>" <%= cat.color == color ? 'selected' : ''%> ><%= color %></option>
+    <% end %>
+  </select>
+
+  <br>
+  <textarea id="description" name="cat[description]" value="description"><%= cat.description %>
+  </textarea>
+
+  <br>
+  <br>
+
+  <input id="submit" type="submit" value=<%= action == :edit ? "Change Genes!" : "Adopt a cat!"%>>
+
+</form>

@@ -1,0 +1,18 @@
+<!-- CAT_RENTAL CONTROLLERS -->
+
+<%= flash[:errors] %>
+
+<form action="<%= cat_rental_requests_url %>" method="POST">
+
+  <select id="desired_cat" name="cat_rental_request[cat_id]">
+    <option disabled selected>--Choose A Cat--</option>
+    <% Cat.all.each do |cat| %>
+    <option value ="<%= cat.id %>"><%= cat.name %></option>
+    <% end %>
+  </select>
+
+
+
+  <input id="submit" type="submit" value= "IT'S a cat!">
+
+</form>

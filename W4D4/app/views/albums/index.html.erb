@@ -1,0 +1,14 @@
+<img src = "https://psap.library.illinois.edu/assets/record-shellac-brokenin3-1500-022e42c5725f71ac905f7064b6b04a7b.jpg">
+
+<br>
+<p>
+  <% if @albums.any? %>
+    <%= render @albums %> <!-- looks at _bands.-.- -->
+  <% else %>
+    No albums in DB
+  <% end %>
+</p>
+
+<% content_for :footer do %>
+  <p>app/views/albums/index.html.erb</p>
+<% end %>

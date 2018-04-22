@@ -1,0 +1,30 @@
+<% flash[:errors].try(:each) do |error| %>
+<%= error %><br>
+<% end %>
+
+
+<form action="<%= action_url %>"
+      method="<%= method_type %> ">
+  <%= auth_token %>
+
+  Email: <input type="text"
+                name="user[email]"
+                value="<%=user.email%>">
+  <br>
+  Password: <input type="password"
+                   name="user[password]">
+
+  <br>
+  <br>
+  <input type="submit" value="<%=sign_button%>" >
+</form>
+
+
+
+<% content_for :footer do %>
+<p>app/views/users/new.html.erb</p>
+<% end %>
+
+####
+<%= render 'layouts/getuser', user: @user, action_url: users_url, method_type: "POST", sign_button: "Sign Up!" %>
+####

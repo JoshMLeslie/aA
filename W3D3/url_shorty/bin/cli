@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+
+require 'Launchy'
+
+def get_url_code
+  puts "Hey, enter a long url to shorten."
+  gets.chomp
+end
+
+def visit_shorty
+  puts "What's your shorty's code?"
+  gets.chomp
+end
+
+def launch(url)
+  puts "Now opening #{url}, please confirm (y/n): "
+  confirm = gets.chomp
+  sleep(0.5)
+  if (confirm =~ /y|Y/) == 0
+    Launchy.open("#{url}")
+  else
+    puts "Exiting"
+    sleep(0.5)
+    exit
+  end
+end
+
+puts 'What\'s your name?'
+user_name = gets.chomp
+puts
+puts 'Show me your email, punk.'
+user_email = gets.chomp
+
+### CREATE USER ###
+user_found = User.find_by(email: user_email)
+
+unless user_found # create user
+  user_found = User.create(name: user_name, email: user_email)
+end
+### CU ###
+
+puts 'Would you like to create a new Shorty or visit one? (n / v)'
+new_shorty_response = gets.chomp
+
+response = ((new_shorty_response =~ /n|N/) == 0)
+
+url_code = ( response ? get_url_code : visit_shorty)
+
+if response # make shorty
+
+  new_shorty = ShortenedUrl.random_code(user_found, url_code)
+
+  puts "Your new shorty is: #{new_shorty.short_url}"
+  puts "Copy this to reference back to the long-form."
+
+  launch(new_shorty.url_code)
+else # visit
+
+  # url_code is a hash here
+
+  long_url = ShortenedUrl.find_by(short_url: url_code).long_url
+
+  launch(long_url)
+end
