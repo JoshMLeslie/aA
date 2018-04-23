@@ -20,6 +20,8 @@ const ctx = canvasEl.getContext("2d");
 
 
 
+
+
 // const anAst = new Asteroid(
 //   {
 //   }
@@ -39,6 +41,8 @@ console.log(testAst);
 
 const animateCallback = (ctx) => {
     ctx.clearRect(0, 0, 500, 1500);
+    ctx.fillStyle("black");
+    ctx.fillRect(0, 0, 500, 1500);
 
     testAst.draw(ctx);
     testAst.move();

@@ -40,7 +40,6 @@ Game.prototype.addAsteroids = function () {
   for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
     this.add(new Asteroid({ game: this }));
   }
-
 };
 
 Game.prototype.randomPosition = function () {
@@ -63,4 +62,14 @@ Game.prototype.checkCollisions = function checkCollisions() {
       }
     }
   }
+};
+
+Game.prototype.draw = function draw(ctx) {
+  ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+
+  this.allObjects().forEach(function(object) {
+    object.draw(ctx);
+  });
 };
