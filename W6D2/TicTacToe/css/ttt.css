@@ -1,0 +1,61 @@
+html, body, figure, figcaption, ul, li, h1 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: sans-serif;
+  text-align: inherit;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+
+body {
+  text-align: center;
+}
+
+.x,
+.o {
+  background: white;
+  cursor: default;
+}
+
+.x:hover,
+.o:hover {
+  background: white;
+}
+
+.x:after,
+.o:after {
+  display: block;
+  width: 100%;
+  font-size: 60px;
+  line-height: 80px;
+}
+
+.x:after {
+  background: #800000;
+}
+
+.o:after {
+  background: #228b22;
+}
+
+.game-over div {
+  color: blue;
+  cursor: default;
+  background: white;
+}
+
+.winner-x .x,
+.winner-o .o {
+  background: green;
+  color: white;
+}
+
+figcaption {
+  font-size: 30px;
+}
