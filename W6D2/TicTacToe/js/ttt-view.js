@@ -37,8 +37,8 @@ class View {
   catch (e) { alert("This " + e.msg.toLowerCase()); }
 
   // color boxes based on player
-  if (cP === "x" ) {$box.css("background","#800000"); }
-  else {$box.css("background", "#228b22");}
+  if (cP === "x" ) {$box.css("background","#348017"); } // green
+  else {$box.css("background", "#C47451");} // orange salmon
 
   $box.addClass(cP);
 
@@ -52,9 +52,15 @@ class View {
 
     if (winner) {
       this.$el.addClass("winner-" + winner);
-      $figcap.html("You win, " + winner + "!");
+
+      let color;
+      if (cP === "x" ) {color = "Medium Spring Green";}
+      else {color = "Orange Salmon";}
+
+      $figcap.html("You win, " + color + "!");
+
     } else {
-      $figcap.html(`Well, look at that. It's a draw.`);
+      $figcap.html(`Well, that's a draw.`);
     }
 
     this.$el.append($figcap);
@@ -96,7 +102,7 @@ class View {
 
     $div.css({
       // "background": "gray",
-      "border" : "3px solid blue",
+      "border" : "3px solid #2554C7",
       "width": "30%",
       "height": "30%",
       "margin": "5px",
