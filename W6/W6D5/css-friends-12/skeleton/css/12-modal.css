@@ -1,0 +1,57 @@
+/* PHASE 12: Modal */
+:root {
+  --signin-width: 400px;
+}
+
+.modal {
+  position: relative;
+}
+
+.modal-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  background: rgba(0,0,0,0.8);
+}
+
+fieldset #welcome-span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-fieldset h1 {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+#signin {
+  width: var(--signin-width);
+}
+
+.modal-form {
+  z-index: 3;
+  position: absolute;
+  margin: 0 auto;
+  top: 20%;
+  left: calc(50% - calc( var(--signin-width) / 2 ) );
+  /* left half (50%) - half of the 'signin' fieldset */
+}
+
+.is-open {
+  display: none; /*  to hide */
+}
+
+xTag {
+  display: block;
+  float: right;
+  font-size: 36px;
+}
+
+xTag:hover {
+  color: red;
+  cursor: pointer;
+}

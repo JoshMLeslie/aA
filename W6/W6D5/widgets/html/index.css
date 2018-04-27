@@ -1,0 +1,20 @@
+#root {
+  display: block;
+  margin: auto;
+  width: 750px;
+  position: relative;
+  border: 1px solid blue;
+  height: 500px;
+  top: 10px;
+}
+
+.clock {
+  font-family: 'Do Hyeon', sans-serif;
+  padding: 20px;
+  border: 1px solid red;
+  width: 10%;
+  text-align: center;
+  float: right;
+  right: 150px;
+  position: absolute;
+}
