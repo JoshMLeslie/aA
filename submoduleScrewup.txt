@@ -1,0 +1,25 @@
+
+I found myself in a similar situation as the poster:
+
+If I call "git add .", and then "git status" and it keeps saying
+"working directory clean" and has nothing to commit.
+
+But I had a different solution than what's here. Since I came to this first,
+I hope to save others some time.
+
+From the above answers and what I've seen elsewhere,
+the usual fixes to this problem are:
+
+Ensure there are actually saved changes on the file in question
+Ensure the file doesn't meet your exclude rules in .gitignore and
+.git/info/exclude
+Ensure you're not trying to add an empty folder. Git won't track those.
+Standard solution is to place a blank file named .gitkeep as a placeholder
+so git will track the folder.
+In my case, I had originally tried to create a git repo around an existing repo
+(not knowing it was there). I had removed the .git folder from this sub repo
+a while ago, but I didn't realize that it was too late, and git was already
+tracking it as a submodule. You can read more about how these behave and how to
+remove them here, but
+
+the solution for me was to simply run git rm --cached path_to_submodule.
