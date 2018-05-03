@@ -1,5 +1,7 @@
 import React from 'react';
-import Pokemon from './pokemon_item';
+import PokemonItems from './pokemon_item';
+import PokemonDetail from './pokemon_detail_container';
+import { Switch, Route } from 'react-router-dom';
 
 export default class PokemonIndex extends React.Component {
   constructor (props) {
@@ -12,9 +14,12 @@ export default class PokemonIndex extends React.Component {
 
   render () {
     return (
-      <ul>
-        <Pokemon pokemon={this.props.pokemon} />
-      </ul>
+      <main>
+        <Route path='/pokemon/:pokemonId' component={PokemonDetail} />
+        <ul>
+          <PokemonItems pokemon={this.props.pokemon} />
+        </ul>
+      </main>
     );
   }
 }
