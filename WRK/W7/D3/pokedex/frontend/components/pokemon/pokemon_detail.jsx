@@ -22,7 +22,7 @@ export default class PokemonDetail extends React.Component {
 debugger
 // works when visited directly (pokemon/:id) but not from another page. ???
     let items = poke.item_ids.map((item_id) => {
-      debugger
+      // debugger
       return (<li><ItemDetail id={item_id}/></li>);
     });
 
