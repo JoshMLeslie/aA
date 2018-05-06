@@ -1,0 +1,52 @@
+
+main {
+  width: 100%;
+  position: relative;
+
+}
+
+img {
+  width: 100%;
+}
+
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  top: 0;
+  background: #AAA;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.header div {
+  border: 1px solid black;
+  background: white;
+  padding: 1.25%; /* top right bottom left -- Clockwise from noon */
+  margin: 1%; /* top right bottom left -- Clockwise from noon */
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 10px;
+  font-weight: 400;
+}
+
+
+.link-container {
+  font-size: 16px;
+}
+
+#user {
+  background: white;
+}
+
+#footer-links {
+  text-align: center;
+  background: gray;
+  padding: 1%;
+}
+
+#footer-links a {
+  margin: 1%;
+}
