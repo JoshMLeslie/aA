@@ -50,6 +50,7 @@ Temporary Items
 /test/tmp/
 /test/version_tmp/
 /tmp/
+/tmp/*
 
 ## Documentation cache and generated files:
 /.yardoc/
