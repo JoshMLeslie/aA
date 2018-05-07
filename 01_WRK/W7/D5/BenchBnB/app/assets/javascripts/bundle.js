@@ -280,41 +280,52 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Greeting = function Greeting(_ref) {
-  var currentUser = _ref.currentUser,
-      logout = _ref.logout;
+var Greeting = function Greeting(props) {
+  var currentUser = props.currentUser;
+  var logout = props.logout;
 
   if (currentUser) {
-    return _react2.default.createElement(
-      'div',
-      { className: 'user-block' },
-      _react2.default.createElement(
-        'h2',
-        null,
-        'Hello, ',
-        currentUser.username
-      ),
-      _react2.default.createElement(
-        'button',
-        { onClick: logout },
-        'Log Out'
-      )
-    );
+    var User = function User() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'user-block' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Hello, ',
+          currentUser.username
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: logout },
+          'Log Out'
+        )
+      );
+    };
+
+    return _react2.default.createElement(User, null);
+  } else if (!/\/\w+/.test(props.history.location.pathname)) {
+    // e.g. only "/"
+    var Login = function Login() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'session-links' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/login' },
+          'Login! '
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/signup' },
+          'Sign Up! '
+        )
+      );
+    };
+
+    return _react2.default.createElement(Login, null);
   } else {
-    return _react2.default.createElement(
-      'div',
-      { className: 'session-links' },
-      _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/login' },
-        'Login! '
-      ),
-      _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/signup' },
-        'Sign Up! '
-      )
-    );
+    return _react2.default.createElement('div', null);
   }
 };
 
@@ -344,6 +355,8 @@ var _greeting = __webpack_require__(/*! ./greeting */ "./frontend/components/gre
 
 var _greeting2 = _interopRequireDefault(_greeting);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, action) {
@@ -360,7 +373,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_greeting2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_greeting2.default));
 
 /***/ }),
 
@@ -440,9 +453,9 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapStateToProps = function mapStateToProps(props) {
+var mapStateToProps = function mapStateToProps(state) {
   return {
-    errors: props.errors,
+    errors: state.errors.sessionErrors,
     formType: 'login',
     navLink: _react2.default.createElement(
       _reactRouterDom.Link,
@@ -535,68 +548,96 @@ var SessionForm = function (_React$Component) {
   }, {
     key: 'renderErrors',
     value: function renderErrors() {
-      var errors = this.props.errors.sessionErrors;
-
-      return _react2.default.createElement(
-        'ul',
-        null,
-        errors.map(function (error, i) {
-          return _react2.default.createElement(
-            'li',
-            { key: i },
-            error
-          );
-        })
-      );
+      return this.props.errors.map(function (error, i) {
+        return _react2.default.createElement(
+          'li',
+          { key: 'error-' + i },
+          ' ',
+          error,
+          ' '
+        );
+      });
+    }
+  }, {
+    key: 'toTitleCase',
+    value: function toTitleCase(str) {
+      return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
     }
   }, {
     key: 'render',
     value: function render() {
+      var titleCaseForm = this.toTitleCase(this.props.formType);
+
       return _react2.default.createElement(
         'form',
         { onSubmit: this.handleSubmit, value: this.props.formType },
-        this.renderErrors(),
-        _react2.default.createElement('br', null),
         _react2.default.createElement(
-          'h3',
+          'fieldset',
           null,
-          'You have two options: ',
-          this.props.formType,
-          ' here or ',
-          this.props.navLink,
-          ' there'
-        ),
-        _react2.default.createElement(
-          'h4',
-          null,
-          'Or leave, that\'s also an option. You\'re not trapped here.'
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'label',
-          null,
-          'Username:',
-          _react2.default.createElement('input', {
-            type: 'text',
-            value: this.state.username,
-            onChange: this.update('username')
-          })
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'label',
-          null,
-          'Password:',
-          _react2.default.createElement('input', {
-            type: 'password',
-            onChange: this.update('password')
-          })
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'button',
-          null,
-          'Assimilate'
+          _react2.default.createElement(
+            'legend',
+            null,
+            titleCaseForm
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'head-box' },
+            _react2.default.createElement(
+              'h4',
+              null,
+              'Or ',
+              this.props.navLink
+            ),
+            _react2.default.createElement(
+              'ul',
+              null,
+              this.renderErrors()
+            )
+          ),
+          _react2.default.createElement(
+            'section',
+            null,
+            _react2.default.createElement(
+              'p',
+              null,
+              'Or leave, that\'s also an option.',
+              _react2.default.createElement('br', null),
+              'You\'re not trapped here.'
+            ),
+            _react2.default.createElement(
+              'label',
+              { id: 'field-username' },
+              'Username:',
+              _react2.default.createElement('input', {
+                type: 'text',
+                value: this.state.username,
+                onChange: this.update('username')
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'label',
+              { id: 'field-password' },
+              'Password:',
+              _react2.default.createElement('input', {
+                type: 'password',
+                onChange: this.update('password')
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'div',
+              { id: 'form-button' },
+              _react2.default.createElement(
+                'button',
+                null,
+                'Assimilate'
+              )
+            )
+          )
         )
       );
     }
@@ -639,9 +680,9 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapStateToProps = function mapStateToProps(props) {
+var mapStateToProps = function mapStateToProps(state) {
   return {
-    errors: props.errors,
+    errors: state.errors.sessionErrors,
     formType: 'signup',
     navLink: _react2.default.createElement(
       _reactRouterDom.Link,
@@ -771,7 +812,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _session_reducer = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
+var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
 var sessionErrorReducer = function sessionErrorReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -779,9 +820,9 @@ var sessionErrorReducer = function sessionErrorReducer() {
 
   Object.freeze(state);
   switch (action.type) {
-    case _session_reducer.RECEIVE_SESSION_ERRORS:
+    case _session_actions.RECEIVE_SESSION_ERRORS:
       return action.errors;
-    case _session_reducer.RECEIVE_CURRENT_USER:
+    case _session_actions.RECEIVE_CURRENT_USER:
       return [];
     default:
       return state;
@@ -946,7 +987,7 @@ var Auth = function Auth(_ref) {
     path: path,
     exact: exact,
     render: function render(props) {
-      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/users/show' });
     }
   });
 };

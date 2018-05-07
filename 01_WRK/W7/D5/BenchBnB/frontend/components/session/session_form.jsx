@@ -25,53 +25,65 @@ class SessionForm extends React.Component {
   }
 
   renderErrors () {
-    const errors = this.props.errors.sessionErrors;
-
     return (
-      <ul>
-        {errors.map((error, i) => {
-            return (
-              <li key={i}>
-                {error}
-              </li>
-        );  })  }
-      </ul>
+      this
+      .props
+      .errors
+      .map((error, i) => {
+        return (
+          <li key={`error-${i}`}> {error} </li>
+        );
+      })
     );
   }
 
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+
   render () {
+    let titleCaseForm = this.toTitleCase(this.props.formType);
+
     return (
       <form onSubmit={this.handleSubmit} value={this.props.formType}>
+        <fieldset>
+          <legend>{titleCaseForm}</legend>
 
-        {this.renderErrors()}
+          <div className="head-box">
+            <h4>Or {this.props.navLink}</h4>
 
-        <br />
+            <ul>{this.renderErrors()}</ul>
+          </div>
 
-        <h3>You have two options: {this.props.formType} here or {this.props.navLink} there</h3>
-        <h4>{`Or leave, that's also an option. You're not trapped here.`}</h4>
+          <section>
+            <p>Or leave, that's also an option.<br />
+            You're not trapped here.</p>
 
-        <br />
+            <label id="field-username">Username:
+              <input
+                type="text"
+                value={this.state.username}
+                onChange={this.update('username')}
+                />
+            </label>
 
-        <label>Username:
-          <input
-            type="text"
-            value={this.state.username}
-            onChange={this.update('username')}
-            />
-        </label>
+            <br />
 
-        <br />
-
-        <label>Password:
-          <input
-            type="password"
-            onChange={this.update('password')}
-            />
-        </label>
-
-        <br />
-
-        <button>Assimilate</button>
+            <label id="field-password">Password:
+              <input
+                type="password"
+                onChange={this.update('password')}
+                />
+            </label>
+            <br />
+            <br />
+            <div id="form-button">
+              <button >Assimilate</button>
+            </div>
+          </section>
+        </fieldset>
       </form>
     );
   }

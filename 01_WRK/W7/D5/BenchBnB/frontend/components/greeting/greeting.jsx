@@ -1,24 +1,33 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { Route} from 'react-router-dom';
 
+const Greeting = (props) => {
+  const currentUser = props.currentUser;
+  const logout = props.logout;
 
-const Greeting = ({currentUser, logout}) => {
   if (currentUser) {
-    return (
+    const User = () => (
       <div className="user-block">
         <h2>Hello, {currentUser.username}</h2>
         <button onClick={logout}>Log Out</button>
       </div>
     );
-  } else {
-    return (
+
+    return <User />;
+  } else if ( !(/\/\w+/).test(props.history.location.pathname) ) {
+    // e.g. only "/"
+    const Login = () => (
       <div className="session-links">
         <Link to='/login'>Login! </Link>
         <Link to='/signup'>Sign Up! </Link>
       </div>
     );
-  }
 
+    return <Login />;
+  } else {
+    return <div></div>;
+  }
 };
 
 export default Greeting;

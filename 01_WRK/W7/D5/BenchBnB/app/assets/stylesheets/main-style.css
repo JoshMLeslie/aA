@@ -1,0 +1,32 @@
+html {
+  list-style: none;
+}
+
+form {
+  max-width: 25%;
+  margin: 0 auto;
+}
+
+#form-button {
+  text-align: center;
+}
+
+.head-box {
+  border: 1px solid black;
+  padding: 0 2% 0 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#field-username {
+}
+
+#field-password {
+}
+
+.user-block{
+
+}
+.session-links{
+
+}

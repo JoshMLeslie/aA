@@ -3,16 +3,20 @@ class Api::SessionsController < ApplicationController
   before_action :require_login, except: [:new, :create]
 
   def create
-    @user = User.find_by_credentials(
-      params[:user][:username],
-      params[:user][:password]
-    )
+    error = {json: ["Invalid username/password combination"], status: 401}
+    username = params[:user][:username]
+    password = params[:user][:password]
+
+    # skip the db hit
+    return (render error) if ( username.empty? || password.empty? )
+
+    @user = User.find_by_credentials( username, password )
 
     if @user
       login(@user)
       render 'api/users/show'
     else
-      render json: @user.errors.full_messages, status: 422
+      render error
     end
   end
 
