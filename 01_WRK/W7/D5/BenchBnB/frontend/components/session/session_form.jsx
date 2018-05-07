@@ -37,19 +37,11 @@ class SessionForm extends React.Component {
     );
   }
 
-  toTitleCase(str) {
-    return str.replace(/\w\S*/g, (txt) => {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  }
-
   render () {
-    let titleCaseForm = this.toTitleCase(this.props.formType);
-
     return (
       <form onSubmit={this.handleSubmit} value={this.props.formType}>
         <fieldset>
-          <legend>{titleCaseForm}</legend>
+          <legend>{this.props.formLegend}</legend>
 
           <div className="head-box">
             <h4>Or {this.props.navLink}</h4>

@@ -457,6 +457,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     errors: state.errors.sessionErrors,
     formType: 'login',
+    formLegend: 'Login',
     navLink: _react2.default.createElement(
       _reactRouterDom.Link,
       { to: '/signup' },
@@ -559,17 +560,8 @@ var SessionForm = function (_React$Component) {
       });
     }
   }, {
-    key: 'toTitleCase',
-    value: function toTitleCase(str) {
-      return str.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var titleCaseForm = this.toTitleCase(this.props.formType);
-
       return _react2.default.createElement(
         'form',
         { onSubmit: this.handleSubmit, value: this.props.formType },
@@ -579,7 +571,7 @@ var SessionForm = function (_React$Component) {
           _react2.default.createElement(
             'legend',
             null,
-            titleCaseForm
+            this.props.formLegend
           ),
           _react2.default.createElement(
             'div',
@@ -684,6 +676,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     errors: state.errors.sessionErrors,
     formType: 'signup',
+    formLegend: 'Signup',
     navLink: _react2.default.createElement(
       _reactRouterDom.Link,
       { to: '/login' },
