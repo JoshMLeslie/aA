@@ -1,6 +1,6 @@
-require_relative 'queen'
-require_relative 'bishop'
-require_relative 'rook'
+require_relative 'sliders/queen'
+require_relative 'sliders/bishop'
+require_relative 'sliders/rook'
 
 if __FILE__ == $PROGRAM_NAME
   q = Queen.new(:black, [0,4])
@@ -10,17 +10,17 @@ if __FILE__ == $PROGRAM_NAME
   p q
 
   q.move([7,4]) # good pos
-  p q.current_pos
-  q.move([3,3]) # bad pos
-  p q.current_pos
+  p q.current_pos === [7, 4]
+  q.move([3,3]) # bad pos, shouldn't update
+  p q.current_pos === [7, 4]
   p "---"
-  b.move([1,3]) # good position
-  p b.current_pos
-  b.move([0,0]) # bad position
-  p b.current_pos
+  b.move([1,3]) # good pos
+  p b.current_pos === [1, 3]
+  b.move([0,0]) # bad pos, shouldn't update
+  p b.current_pos === [1, 3]
   p "---"
-  r.move([7,0]) # good position
-  p r.current_pos
-  r.move([3,3]) # bad position
-  p r.current_pos
+  r.move([7,0]) # good pos
+  p r.current_pos === [7,0]
+  r.move([3,3]) # bad pos, shouldn't update
+  p r.current_pos === [7,0]
 end

@@ -1,8 +1,8 @@
 require_relative '../chess_piece'
-require_relative 'steppable' # file_name
+require_relative 'steppable'
 
 
-class Knight < ChessPiece # brain slug symbol (BSS)
+class Knight < ChessPiece
   include Steppable # ModuleName
 
   def initialize(color, pos)

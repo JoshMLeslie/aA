@@ -1,7 +1,7 @@
 require 'byebug'
 require_relative 'chess_piece'
 
-class Pawn < ChessPiece # brain slug symbol (BSS)
+class Pawn < ChessPiece
 
   ATTACKS_OFF = [
     [-1,-1], [-1, 1],
@@ -15,7 +15,6 @@ class Pawn < ChessPiece # brain slug symbol (BSS)
   end
 
   def move(to_pos)
-    # byebug
     # current_pos +- 1 y
     x, y = to_pos
     if valid_move?(x, y)
@@ -27,7 +26,6 @@ class Pawn < ChessPiece # brain slug symbol (BSS)
   end
 
   def valid_move?(x, y)
-    # byebug
     if y == current_pos[1]
       case color
         when :white

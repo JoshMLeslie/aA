@@ -2,11 +2,7 @@ require 'singleton'
 
 # ChessPiece Master Class
 # => Also contains NullPiece Class
-
-
-
 class ChessPiece
-
   attr_reader :color
   attr_accessor :current_pos, :symbol
 
@@ -19,7 +15,7 @@ class ChessPiece
     @color = color
     # symbol_update should be incoming as a string char
     @symbol = [("265"+symbol_update).hex].pack("U")
-    # add defining value in child, then encode
+    # add defining value from child, then encode
   end
 
   def move(diff)
@@ -37,6 +33,7 @@ class ChessPiece
 
 end
 
+# # # # # # # # # # # # # # # # # # # # #
 class NullPiece < ChessPiece
   include Singleton
 
@@ -51,3 +48,4 @@ class NullPiece < ChessPiece
     self.symbol
   end
 end
+# # # # # # # # # # # # # # # # # # # # #

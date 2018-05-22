@@ -33,12 +33,12 @@ MOVES = {
 
 class Cursor
 
-  attr_reader :cursor_pos, :board
+  attr_reader :cursor_pos, :game
 
-  def initialize(cursor_pos, board)
+  def initialize(cursor_pos, game)
     # cursor_pos is [x,y]
     @cursor_pos = cursor_pos
-    @board = board
+    @game = game
   end
 
   def get_input
@@ -46,7 +46,7 @@ class Cursor
     handle_key(key)
   end
 
-  # developer #
+  # dev #
   # def man_update_pos(pos)
   #   update_pos(pos)
   # end
@@ -101,8 +101,8 @@ class Cursor
     # dif is [+-1, +- 1]
     x, y = diff
     check_pos = [@cursor_pos[0] + x , @cursor_pos[1] + y]
-    
-    if board.valid_pos?(check_pos)
+
+    if game.valid_pos?(check_pos)
       @cursor_pos[0] += x
       @cursor_pos[1] += y
     end

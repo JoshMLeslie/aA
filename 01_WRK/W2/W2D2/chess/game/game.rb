@@ -1,11 +1,11 @@
 require 'byebug'
 require 'colorize'
 # require_relative '../pieces/chess_piece'
-require_relative '../pieces/steppables/step_require_helper'
+require_relative '../pieces/steppers/step_require_helper'
 require_relative '../pieces/sliders/slide_require_helper'
 require_relative "../pieces/pawn"
 
-class Board
+class Game
 
   PIECES_POS = [
     :Rook, :Knight, :Bishop, :King, :Queen, :Bishop, :Knight, :Rook
@@ -67,8 +67,6 @@ class Board
     return new_piece
   end
 
-
-
   def move_piece
     begin
       start_pos, end_pos = get_moves
@@ -82,7 +80,6 @@ class Board
 
     # flip pieces ## @set = draw
     self[end_pos], self[start_pos] = self[start_pos], self[end_pos]
-
   end
 
   def valid_pos?(pos)
@@ -135,14 +132,16 @@ private
   def check_start_pos(start_pos) #make error more detailed
     #returns true if end_pos is ChessPiece
     return true if self[start_pos].is_a?(ChessPiece)
-    raise StandardError.new("Start_pos Error")
+    raise StandardError.new("Start_pos Error, not a piece")
   end
 
   def check_end_pos(end_pos)
     #returns true if end_pos is NullPiece
     return true if self[end_pos].is_a?(NullPiece)
-    raise StandardError.new("End_pos Error")
+    raise StandardError.new("End_pos Error, space occupied")
   end
+
+  
 
 end # class end
 
