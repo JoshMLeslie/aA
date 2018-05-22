@@ -1,9 +1,6 @@
 require 'byebug'
 require 'colorize'
-# require_relative '../pieces/chess_piece'
-require_relative '../pieces/steppers/step_require_helper'
-require_relative '../pieces/sliders/slide_require_helper'
-require_relative "../pieces/pawn"
+require_relative '../pieces/all_pieces'
 
 class Game
 
@@ -29,7 +26,6 @@ class Game
   end
 
   def make_and_fill_board
-
     temp_board = Array.new(8) { Array.new(8) }
 
     temp_board.map.with_index do |row, row_i|
@@ -47,8 +43,6 @@ class Game
   end # make and fill board END
 
   def place_piece(row_i, col_i)
-    # Knight.new(:white, [0,0])
-    # a;lksda;ls(color, [row_i, col_i])
     color = (row_i == 0 ? :white : :black)
 
     # PIECES == :Rook, etc.
@@ -86,31 +80,80 @@ class Game
     pos.all? { |val| val.between?(0,7) }
   end
 
-  # # make a copy in board for collision
-  #  def find_vector(end_pos)
-  #    #finds directions from start_pos to end_pos
-  #    #returns vector if possible else returns false
-  #    #vector of self.current_pos and end_pos
-  #
-  #    # TDA: board => you can move through this space
-  #      # => piece: cool, thanks. I'm moving now.
-  #
-  #    moving_pos = [] #calculate moving_pos
-  #    offsets = which_slider
-  #    vector == offsets.any?
-  #    until moving_pos == end_pos
-  #
-  #    end
-  #  end
+  def in_check?(color)
+    # call as board.in_check?(color)
+    # color is a symbol
+
+    king_pos = self.piece_pos("King", color)
+
+    # cycle through each of the other possible color pieces' positions
+    other_color = (color == :white ? :black : :white)
+    other_side = {} # other_color: other_color
+    pieces = [:Pawn].concat(PIECES_POS[0..4])
+
+    other_side.merge!(piece_pos(pieces,other_color))
+
+    other_side.each do |piece_name, pieces|
+
+      pieces.each do |piece|
+        return {pieces: pieces, king_pos: king_pos} if piece.valid_move?(king_pos)
+      end
+    end
+
+    return false
+  end
+
+  def checkmate?(color)
+    data = in_check?(color)
+    if data
+      pieces = data[:pieces]
+      king_pos = data[:king_pos]
+      kings_moves = King.king_move_radius(king_pos)
+      return kings_moves.any? {|move| check_end_pos(move)}
+    else
+      return data # false
+    end
+  end
+
+  def piece_pos(find_piece,color)
+
+    # self is the game
+    # if given an array of pieces, returns an array
+    # else returns a single piece obj
+
+    result = Hash.new {|h,k| h[k] = []}
+    if find_piece.class.to_s == "Array"
+      self.board.each do |row|
+        row.each do |piece|
+          if find_piece.include?(piece.class.to_s.intern) &&
+            piece.color == color
+
+             result[piece.class.to_s] << piece
+          end
+        end
+      end
+      return result
+    else
+      self.board.each do |row|
+        row.each do |piece|
+          if piece.class.to_s == find_piece &&
+            piece.color == color
+
+            return piece.current_pos
+          end
+        end
+      end
+    end
+  end
 
 private
   def get_moves
     result = []
     2.times do |n|
       begin
-        puts "Input value \"x,y\": "
+        puts "Input value 'x,y': "
         temp_result = gets.chomp.scan(/\d+/).map(&:to_i)
-        valid!(temp_result) # tests temp result
+        valid?(temp_result) # tests temp result
       rescue
         puts "Input is invalid, try again."
         retry
@@ -121,12 +164,12 @@ private
     result
   end
 
-  def valid!(temp_result)
-    raise StandardError if valid?(temp_result)
+  def valid?(temp_result)
+    raise StandardError if temp_result.invalid
   end
 
-  def valid?(temp_result)
-    temp_result.length == 2 || temp_result.any? { |val| val < 0 || val > 7 }
+  def invalid
+    self.length == 2 || self.any? { |val| val < 0 || val > 7 }
   end
 
   def check_start_pos(start_pos) #make error more detailed
@@ -141,7 +184,8 @@ private
     raise StandardError.new("End_pos Error, space occupied")
   end
 
-  
+
+
 
 end # class end
 

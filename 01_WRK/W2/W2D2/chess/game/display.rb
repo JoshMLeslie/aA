@@ -4,9 +4,6 @@ require_relative 'cursor'
 require_relative 'game'
 require_relative '../pieces/chess_piece'
 
-# RENDER IS TOO TIGHT
-# MAKE PIECES BIGGER?
-
 class Display
 
   attr_reader :cursor, :game, :board
@@ -34,7 +31,7 @@ class Display
 
       0.upto(7) do |y|
         val = board_colorize(x,y)
-        temp_arr << ["#{val} "]
+        temp_arr << ["#{val}"]
       end
 
       print_arr << temp_arr # building rows
@@ -54,10 +51,15 @@ class Display
       puts pretty_row
     end
 
-    puts "\nHELLO WORLD. GLORY TO HYPNOTOAD.\nCursor: #{self.cursor.cursor_pos}"
+    # puts "\nHELLO WORLD. GLORY TO HYPNOTOAD."
+
+    # game dev output #
+    puts "\nHELLO WORLD. GLORY TO HYPNOTOAD.\nCursor: #{self.cursor.cursor_pos}\nKing in Check? #{game.in_check?(:black)}"
+    # # #
   end
 
   def render_cursor!(print_arr)
+
     x, y = cursor.cursor_pos
     print_arr_val = print_arr[x][y][0]
 
@@ -67,6 +69,7 @@ class Display
   def board_colorize(x,y)
     # adds checkerboard pattern
     piece = board[x][y]
+
     if (x.odd? && y.odd?) || (x.even? && y.even?)
       piece.display.colorize(piece.color).on_light_blue
     else
@@ -86,6 +89,9 @@ if __FILE__ == $PROGRAM_NAME
   input = disp.cursor.get_input
   until input == :crtl_c
     puts " "
+    # if disp.cursor.get_input == :return
+    #   debugger
+    # end
     disp.render
     input = disp.cursor.get_input
   end
